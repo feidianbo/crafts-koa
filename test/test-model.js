@@ -32,6 +32,17 @@ Expert.find().select('name works.name').exec(function(err, experts) {
         console.log(err);
     } else {
         console.log(experts);
-        
+
     }
 });
+
+Expert.distinct('works').exec(function(err, works) {
+    if (err) {
+        console.log(err);
+    } else {
+        console.log(works);
+        for(var i in works) {
+            console.log(works[i].name);
+        }
+    }
+})
