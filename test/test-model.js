@@ -11,7 +11,7 @@ var Work = require('../model/work');
 
 var save = function() {
     var expert = new Expert();
-    for (i = 0; i < 5; i++) {
+    for (var i = 0; i < 5; i++) {
         var work = new Work();
         work.name = 'T' + i;
         work.description = '名字是：' + work.name;
@@ -24,17 +24,17 @@ var save = function() {
         } else {
             console.log(expert);
         }
-    })
+    });
 }
 
-Expert.find().select('name works.name').exec(function(err, experts) {
-    if (err) {
-        console.log(err);
-    } else {
-        console.log(experts);
-
-    }
-});
+// Expert.find().select('name works.name').exec(function(err, experts) {
+//     if (err) {
+//         console.log(err);
+//     } else {
+//         console.log(experts);
+//
+//     }
+// });
 
 Expert.distinct('works').exec(function(err, works) {
     if (err) {
@@ -45,4 +45,4 @@ Expert.distinct('works').exec(function(err, works) {
             console.log(works[i].name);
         }
     }
-})
+});
