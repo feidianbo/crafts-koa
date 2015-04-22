@@ -8,7 +8,7 @@ var mongoose = require('mongoose');
 var co = require('co');
 
 // console.log(mongoose);
-mongoose.connect('mongodb://localhost/library');
+mongoose.connect('mongodb://localhost/crafts');
 
 // From lifeofjs
 co(function * () {
