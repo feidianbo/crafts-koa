@@ -7,6 +7,8 @@ var wrap = require('co-monk');
 var mongoose = require('mongoose');
 var co = require('co');
 
+var Expert = require('../model/expert');
+
 // console.log(mongoose);
 mongoose.connect('mongodb://localhost/crafts');
 
@@ -57,7 +59,9 @@ module.exports.list = function * list(next) {
 // This must be avoided, use ajax in the view.
 module.exports.all = function * all(next) {
   if ('GET' != this.method) return yield next;
-  this.body = yield experts.find({});
+  var experts = yield Expert.find({}).populate('works');
+  console.log(experts);
+  this.body = experts;
 };
 
 module.exports.add = function * add(data,next) {

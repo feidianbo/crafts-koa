@@ -28,24 +28,70 @@ var _comment = {
                     if (err) {
                         console.log(err);
                     } else {
+                        console.log('comment');
                         console.log(comment);
                     }
                 })
             }
         })
+    },
+    find: function() {
+        Comment.find()/*findById('5537a4f5343c10979165e2ac')*/.populate('poster', 'name').exec(function(err, comments) {
+            if (err) {
+                console.log(err);
+            } else {
+                console.log(comments);
+            }
+        })
     }
 }
 
-// _comment.save();
+var _expert = {
+    save: function() {
+        var work = new Work();
+        work.name = '作品一';
+        work.description = '这是我的一个作品';
 
-Comment.findById('5537a4f5343c10979165e2ac').populate('poster').exec(function(err, comments) {
-    if (err) {
-        console.log(err);
-    } else {
-        console.log(comments);
+        work.save(function(err, work) {
+            if (err) {
+                console.log(err);
+            } else {
+                console.log('work');
+                console.log(work);
+
+                var expert = new Expert();
+                expert.name = '李小平';
+                expert.description = '我是李小平，我为自己代言。';
+                expert.works.push(work);
+
+                expert.save(function(err, expert) {
+                    if (err) {
+                        console.log(err);
+                    } else {
+                        console.log('expert');
+                        console.log(expert);
+                    }
+                })
+            }
+        })
+    },
+    find: function() {
+        Expert.find()/*.populate({path: '[works]', select: 'name'})*/.exec(function(err, experts) {
+            if (err) {
+                console.log(err);
+            } else {
+                console.log(experts);
+            }
+        });
+        Expert.find({}).exec(function(err, experts) {
+            if (err) {
+                console.log(err);
+            } else {
+                console.log(experts);
+            }
+        });
     }
-})
-return;
+}
 
 var save = function() {
     var expert = new Expert();
@@ -67,7 +113,12 @@ var save = function() {
     });
 }
 
-save();
+
+// _comment.save();
+// _comment.find();
+// _expert.save();
+_expert.find();
+
 return;
 
 // Expert.find().select('name works.name').exec(function(err, experts) {
