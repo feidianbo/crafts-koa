@@ -14,10 +14,10 @@ var ExpertSchema = new mongoose.Schema({
     // 性别
     gender: ['男', '女'],
     // 作品
-    works: {
-        type: [mongoose.Schema.Types.ObjectId]
-        , ref: 'Work'
-    }
+    works: [{
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'Work'
+    }]
 });
 
 module.exports = mongoose.model('Expert', ExpertSchema);
