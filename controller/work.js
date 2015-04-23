@@ -3,13 +3,12 @@ var views = require('co-views');
 var parse = require('co-body');
 var mongoose = require('mongoose');
 
-var Expert = require('../model/expert');
+var Work = require('../model/work');
 
 module.exports.list = function * list(type, next) {
     if (type == 'recommend') {
-        // this.response.header['Access-Control-Allow-Origin', '*'];
         this.response.set('Access-Control-Allow-Origin', '*');
-        this.body =  yield Expert.find({}).populate({path: 'works', match: {recommend: true}}).exec();
+        this.body =  yield Work.find({}).populate('comments').exec();
     } else {
         this.body = {};
     }
@@ -18,11 +17,11 @@ module.exports.list = function * list(type, next) {
 module.exports.all = function * all(next) {
     this.response.set('Access-Control-Allow-Origin', '*');
     if ('GET' != this.method) return yield next;
-    this.body = yield Expert.find({}).populate('works');
+    this.body = yield Work.find({}).populate('comments');
 };
 
 module.exports.fetch = function * fetch(id, next) {
     this.response.set('Access-Control-Allow-Origin', '*');
     if ('GET' != this.method) return yield next;
-    this.body = yield Expert.findById(id);
+    this.body = yield Work.findById(id);
 }

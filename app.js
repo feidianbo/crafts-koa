@@ -10,6 +10,7 @@ var mongoose = require('mongoose');
 var app = module.exports = koa();
 
 var expert = require('./controller/expert');
+var work = require('./controller/work');
 var comment = require('./controller/comment');
 
 mongoose.connect('mongodb://localhost/crafts');
@@ -19,6 +20,8 @@ app.use(logger());
 
 // app.use(route.get('/', expert.home));
 app.use(route.get('/experts/:type', expert.list));
+app.use(route.get('/works', work.all));
+app.use(route.get('/work/:id', work.fetch));
 app.use(route.get('/experts/', expert.all));
 app.use(route.get('/view/experts/', expert.list));
 app.use(route.get('/expert/:id', expert.fetch));

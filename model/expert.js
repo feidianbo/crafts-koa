@@ -9,6 +9,8 @@ var ExpertSchema = new mongoose.Schema({
     name: String,
     // 简介
     description: String,
+    // 头像
+    avatar: String,
     // 年龄
     age: Number,
     // 出生日期
