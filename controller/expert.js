@@ -9,7 +9,7 @@ module.exports.list = function * list(type, next) {
     if (type == 'recommend') {
         // this.response.header['Access-Control-Allow-Origin', '*'];
         this.response.set('Access-Control-Allow-Origin', '*');
-        this.body =  yield Expert.find().populate('works');
+        this.body =  yield Expert.find({}).populate({path: 'works', match: {recommend: true}, select: '-recommend'}).exec();
     } else {
         this.body = {};
     }

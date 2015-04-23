@@ -78,29 +78,30 @@ var _expert = {
         });
     },
     find: function() {
-        // Expert.find().populate('works').exec(function(err, experts) {
-        //     if (err) {
-        //         console.log(err);
-        //     } else {
-        //         console.log(experts);
-        //     }
-        // });
-
-        // Expert.find({}).exec(function(err, experts) {
-        //     if (err) {
-        //         console.log(err);
-        //     } else {
-        //         console.log(experts);
-        //     }
-        // });
-
-        Expert.find(true, 'works.recommend').exec(function(err, experts) {
+        Expert.find({})
+        .populate({path: 'works', match: {recommend: true}, select: '-recommend'}).exec(function(err, experts) {
             if (err) {
                 console.log(err);
             } else {
                 console.log(experts);
             }
         });
+
+        // Expert.find(true, 'works recommend').populate('works')/*.select('works')*/.exec(function(err, experts) {
+        //     if (err) {
+        //         console.log(err);
+        //     } else {
+        //         console.log(experts);
+        //     }
+        // });
+
+        // Expert.find(true, 'works recommend').populate('works').exec(function(err, experts) {
+        //     if (err) {
+        //         console.log(err);
+        //     } else {
+        //         console.log(experts);
+        //     }
+        // });
     }
 }
 
