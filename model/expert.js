@@ -7,6 +7,8 @@ var Work = require('./work');
 var ExpertSchema = new mongoose.Schema({
     // 姓名
     name: String,
+    // 简介
+    description: String,
     // 年龄
     age: Number,
     // 出生日期

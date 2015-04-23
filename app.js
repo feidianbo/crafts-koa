@@ -11,12 +11,14 @@ var app = module.exports = koa();
 
 var expert = require('./controller/expert');
 var comment = require('./controller/comment');
-// Logger
-app.use(logger());
 
 mongoose.connect('mongodb://localhost/crafts');
 
-app.use(route.get('/', expert.home));
+// Logger
+app.use(logger());
+
+// app.use(route.get('/', expert.home));
+app.use(route.get('/experts/:type', expert.list));
 app.use(route.get('/experts/', expert.all));
 app.use(route.get('/view/experts/', expert.list));
 app.use(route.get('/expert/:id', expert.fetch));
@@ -26,6 +28,7 @@ app.use(route.delete('/expert/:id', expert.remove));
 app.use(route.options('/', expert.options));
 app.use(route.trace('/', expert.trace));
 app.use(route.head('/', expert.head));
+
 
 app.use(route.get('/comments', comment.all));
 

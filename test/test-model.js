@@ -48,63 +48,44 @@ var _comment = {
 
 var _expert = {
     save: function() {
-        var work = new Work();
-        work.name = '作品一';
-        work.description = '这是我的一个作品';
+        var expert = new Expert();
+        expert.name = '李小平';
+        expert.description = '我是李小平，我为自己代言。';
 
-        for(var i in [0,1,2]) {
-            var comment = new Comment();
-            comment.title = '这是标题' + i;
-            comment.content = '这是评论的内容' + i;
-            comment.save(function(err, comment) {
-                work.comments.push(comment);
+        expert.save(function(err, expert) {
+            if (err) {
+                console.log(err);
+            } else {
+                for(var i in [0,1,2]) {
+                    var work = new Work();
+                    work.name = '作品一';
+                    work.recommend = true;
+                    work.description = '这是我的一个作品';
 
-                work.save(function(err, work) {
-                    if (err) {
-                        console.log(err);
-                    } else {
-                        console.log('work');
-                        console.log(work);
+                    expert.works.push(work);
 
-                        var expert = new Expert();
-                        expert.name = '李小平';
-                        expert.description = '我是李小平，我为自己代言。';
-                        expert.works.push(work);
-
+                    work.save(function(err, work) {
                         expert.save(function(err, expert) {
                             if (err) {
                                 console.log(err);
                             } else {
-                                console.log('expert');
                                 console.log(expert);
                             }
                         });
-
-                        // Expert.findOne(function(err, expert) {
-                        //     expert.works.push(work);
-                        //
-                        //     expert.save(function(err, expert) {
-                        //         if (err) {
-                        //             console.log(err);
-                        //         } else {
-                        //             console.log('expert');
-                        //             console.log(expert);
-                        //         }
-                        //     })
-                        // });
-                    }
-                })
-            });
-        }
-    },
-    find: function() {
-        Expert.find().populate('works').exec(function(err, experts) {
-            if (err) {
-                console.log(err);
-            } else {
-                console.log(experts);
+                    })
+                }
             }
         });
+    },
+    find: function() {
+        // Expert.find().populate('works').exec(function(err, experts) {
+        //     if (err) {
+        //         console.log(err);
+        //     } else {
+        //         console.log(experts);
+        //     }
+        // });
+
         // Expert.find({}).exec(function(err, experts) {
         //     if (err) {
         //         console.log(err);
@@ -112,6 +93,14 @@ var _expert = {
         //         console.log(experts);
         //     }
         // });
+
+        Expert.find(true, 'works.recommend').exec(function(err, experts) {
+            if (err) {
+                console.log(err);
+            } else {
+                console.log(experts);
+            }
+        });
     }
 }
 
@@ -138,8 +127,8 @@ var save = function() {
 
 // _comment.save();
 // _comment.find();
-_expert.save();
-// _expert.find();
+// _expert.save();
+_expert.find();
 
 return;
 

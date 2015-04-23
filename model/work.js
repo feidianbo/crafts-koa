@@ -7,6 +7,8 @@ var Schema = new mongoose.Schema({
     name: String,
     // 描述
     description: String,
+    // 是否推荐
+    recommend: Boolean,
     // 喜欢数量
     likes: Number,
     // 评论
